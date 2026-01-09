@@ -1,5 +1,11 @@
 export const analyzeResume = async (fileName, textContent) => {
-  const apiKey = "AIzaSyDz6G93luA_zQahIRIg7pFdE8rjXWkpOS8"; 
+  // Using import.meta.env for Vite environment variables
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY; 
+  
+  if (!apiKey) {
+    throw new Error("Gemini API Key is missing. Please check your .env file or Vercel settings.");
+  }
+
   const systemPrompt = `
     You are an expert ATS (Applicant Tracking System) and HR professional. 
     Analyze the provided resume text and return a structured JSON response.
